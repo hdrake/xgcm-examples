@@ -34,23 +34,22 @@ its outputs so the documentation renders correctly.
 
 ## Plotting helpers
 
-Some grids need a lot of matplotlib/cartopy scaffolding before they can be drawn
-truthfully — resampling the 13 LLC tiles onto a lon/lat mesh, or zooming a strip
-of cells around a tripolar seam. That code teaches nothing about xgcm, so it
-lives in plain modules beside the notebooks (`llc_plots.py` for `01_eccov4`,
-`tripolar_plots.py` for `05_tripolar_fold`) and is imported.
+Some grids need a lot of matplotlib/cartopy code before they can be plotted
+sensibly: resampling the 13 LLC tiles onto a lon/lat mesh, or zooming in on a
+strip of cells around a tripolar seam. None of that is about xgcm, so it lives in
+modules beside the notebooks (`llc_plots.py` for `04_eccov4`, `tripolar_plots.py`
+for `05_tripolar_fold`) and is imported.
 
-The rule is **plotting only**. Every xgcm call — `Grid` construction, `interp`,
-`diff`, `pad`, and anything else a reader is meant to learn from — stays inline
-in the notebook where it is visible. A module should never be the place a grid
-operation happens.
+Keep the modules to plotting only. Grid construction, `interp`, `diff`, `pad` and
+anything else a reader is meant to learn from should stay inline in the notebook,
+where it is visible.
 
-Where a grid can be plotted cheaply, do that *first*, before reaching for a
-projection: `02_mitgcm` and `04_nemo_idealized` plot straight from xarray;
-`01_eccov4` shows each LLC tile in its own index space in one line; `03_MOM6`
+Where a grid can be plotted cheaply, do that first, before reaching for a
+projection. `01_mitgcm` and `02_nemo_idealized` plot straight from xarray;
+`04_eccov4` shows each LLC tile in its own index space in one line; `03_MOM6`
 plots in nominal index coordinates before explaining why the tripolar grid needs
-2-D `lon`/`lat`. The cheap plot is honest about the data layout and gives a
-newcomer something they can copy.
+2-D `lon`/`lat`. It shows the reader how the data are laid out, and it is
+something they can copy.
 
 For more on setting up a development environment, see the
 [xgcm contributor guide](https://xgcm.readthedocs.io/en/latest/contributor_guide/).

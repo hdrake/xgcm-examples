@@ -1,9 +1,8 @@
 """Plotting helper for the ECCOv4 LLC example (``04_eccov4.ipynb``).
 
-Drawing only — no xgcm. The LLC (lat-lon-cap) grid stores the globe as 13 square
-tiles whose axes point in different directions, so a single geographic map needs
-the tiles resampled onto a regular lon/lat mesh first. That is all this module
-does; it is plumbing, not part of the xgcm story.
+Plotting only, no xgcm. The LLC (lat-lon-cap) grid stores the globe as 13 square
+tiles whose axes point in different directions, so a geographic map needs the
+tiles resampled onto a regular lon/lat mesh first. That is all this module does.
 """
 
 import cartopy as cart

@@ -1,12 +1,11 @@
 """Plotting helpers for the bipolar north-fold example (``05_tripolar_fold.ipynb``).
 
-Drawing only. Every xgcm call lives in the notebook, where it is meant to be read;
-each function here just renders arrays that the notebook has already computed and
-stored on the per-model dicts.
+Plotting only: the xgcm calls live in the notebook, and these functions just draw
+arrays it has already computed and stored on the per-model dicts.
 
-The seam figures all share one layout: a zoomed strip of the topmost grid rows,
-with the fold seam drawn as a solid line. Rows above the line are halo (what the
-boundary condition invented); rows below are untouched interior.
+The seam figures share a layout: a zoomed strip of the topmost grid rows, with the
+fold seam drawn as a solid line. Rows above the line are halo, rows below are
+interior.
 """
 
 import cartopy.crs as ccrs
@@ -17,11 +16,11 @@ LAND = "0.7"  # grey for masked (land) cells, distinct from every colormap used 
 
 
 def global_vorticity(lon, lat, zeta, title):
-    """03_MOM6's global vorticity map, redrawn.
+    """The global vorticity map from the MOM6 example, redrawn.
 
-    Deliberately the same figure as ``03_MOM6.ipynb``: same Robinson projection,
-    same ``RdBu_r``, same 99th-percentile scale. Only the boundary condition
-    behind ``zeta`` differs.
+    Same Robinson projection, ``RdBu_r`` colormap and 99th-percentile scale as
+    ``03_MOM6.ipynb``, so the two figures can be compared directly. Only the
+    boundary condition behind ``zeta`` differs.
     """
     lim = float(np.nanpercentile(np.abs(zeta), 99))
     fig = plt.figure(figsize=(11, 6))
@@ -205,11 +204,10 @@ def seam_transect(models, K=6, ncols=4):
 
 
 def index_space_overview(models, field_key="speed", K=6):
-    """A plain look at each model's surface speed in raw grid-index space.
+    """Each model's surface speed in raw grid-index space.
 
-    No projection, no fold machinery — just the array as it sits in memory, with
-    the seam row marked. Establishes what "the top edge of the array" means before
-    any xgcm operation is applied to it.
+    No projection and no fold machinery: the array as it sits in memory, with the
+    folded top edge marked.
     """
     fig, axes = plt.subplots(1, len(models), figsize=(4.6 * len(models), 3.6))
     axes = np.atleast_1d(axes)
@@ -226,6 +224,6 @@ def index_space_overview(models, field_key="speed", K=6):
     axes[0].set_ylabel("Y index")
     fig.colorbar(axes[-1].images[0], ax=list(axes), shrink=0.8, pad=0.02,
                  label="surface speed [m s$^{-1}$]")
-    fig.suptitle("Surface speed in raw grid-index space; red line = the top edge that folds onto "
-                 "itself", fontsize=11)
+    fig.suptitle("Surface speed in grid-index space; the red line marks the folded top edge",
+                 fontsize=11)
     plt.show()
