@@ -1,4 +1,4 @@
-"""Plotting helper for the ECCOv4 LLC example (``01_eccov4.ipynb``).
+"""Plotting helper for the ECCOv4 LLC example (``04_eccov4.ipynb``).
 
 Drawing only — no xgcm. The LLC (lat-lon-cap) grid stores the globe as 13 square
 tiles whose axes point in different directions, so a single geographic map needs

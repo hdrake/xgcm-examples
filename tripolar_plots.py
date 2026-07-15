@@ -9,10 +9,29 @@ with the fold seam drawn as a solid line. Rows above the line are halo (what the
 boundary condition invented); rows below are untouched interior.
 """
 
+import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import numpy as np
 
 LAND = "0.7"  # grey for masked (land) cells, distinct from every colormap used here
+
+
+def global_vorticity(lon, lat, zeta, title):
+    """03_MOM6's global vorticity map, redrawn.
+
+    Deliberately the same figure as ``03_MOM6.ipynb``: same Robinson projection,
+    same ``RdBu_r``, same 99th-percentile scale. Only the boundary condition
+    behind ``zeta`` differs.
+    """
+    lim = float(np.nanpercentile(np.abs(zeta), 99))
+    fig = plt.figure(figsize=(11, 6))
+    ax = plt.axes(projection=ccrs.Robinson(central_longitude=-150))
+    pm = ax.pcolormesh(lon, lat, zeta[:lat.shape[0], :lat.shape[1]],
+                       transform=ccrs.PlateCarree(), cmap="RdBu_r", vmin=-lim, vmax=lim)
+    ax.coastlines(linewidth=0.4)
+    fig.colorbar(pm, ax=ax, shrink=0.6, label="relative vorticity [s$^{-1}$]")
+    ax.set_title(title)
+    plt.show()
 
 
 def ocean_window(rows, nx, W):

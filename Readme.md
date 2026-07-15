@@ -25,7 +25,7 @@ notebook. Provide the data it needs in one of these forms:
    GFDL-CM4 output directly from the analysis-ready CMIP6 Zarr store on Google
    Cloud (read anonymously; needs `zarr`+`gcsfs`).
 2. **A file in a Zenodo archive**, downloaded from within the notebook. See
-   `02_mitgcm.ipynb`, `04_nemo_idealized.ipynb`, and `01_eccov4.ipynb` (which
+   `01_mitgcm.ipynb`, `02_nemo_idealized.ipynb`, and `04_eccov4.ipynb` (which
    pulls a 12-month ECCOv4r4 subset on the native LLC90 grid). Prefer small
    datasets where possible.
 
