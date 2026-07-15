@@ -218,12 +218,14 @@ def index_space_overview(models, field_key="speed", K=6):
         ax.set_facecolor(LAND)
         im = ax.imshow(arr, origin="lower", aspect="auto", cmap=cmap,
                        vmin=0, vmax=_scale(arr))
-        ax.axhline(m["ny"] - 0.5, color="r", lw=1.2)  # the folded top edge
+        # The folded edge *is* the top of the array, so mark the frame itself
+        # rather than drawing a line on top of it.
+        ax.spines["top"].set(color="r", linewidth=3)
         ax.set_title(m["label"], fontsize=9)
         ax.set_xlabel("X index")
     axes[0].set_ylabel("Y index")
     fig.colorbar(axes[-1].images[0], ax=list(axes), shrink=0.8, pad=0.02,
                  label="surface speed [m s$^{-1}$]")
-    fig.suptitle("Surface speed in grid-index space; the red line marks the folded top edge",
-                 fontsize=11)
+    fig.suptitle("Surface speed in grid-index space; the red edge at the top of each panel "
+                 "is the fold", fontsize=11)
     plt.show()
